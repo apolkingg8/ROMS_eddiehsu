@@ -1,0 +1,19 @@
+{
+  "name": "roms_eddiehsu",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:server": "ts-node packages/backend/app.ts"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.7.4",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "mobx": "^6.6.1"
+  }
+}

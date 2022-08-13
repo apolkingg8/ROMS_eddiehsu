@@ -1,0 +1,13 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "dependencies": {
+    "@graphql-yoga/node": "^2.13.6",
+    "@mikro-orm/core": "^5.3.1",
+    "@mikro-orm/sqlite": "^5.3.1",
+    "class-validator": "^0.13.2",
+    "graphql": "^15.3.0",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1"
+  }
+}
