@@ -1,3 +1,5 @@
 # Project exclude paths
 /node_modules/
 /packages/common/node_modules/
+
+*.db
