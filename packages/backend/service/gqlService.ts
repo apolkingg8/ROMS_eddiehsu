@@ -1,6 +1,6 @@
 import {buildSchema, registerEnumType} from "type-graphql";
 import EnumOrderStatus from "common/Enum/EnumOrderStatus";
-import EnumOrderSort from "common/Enum/EnumOrderSort";
+import EnumOrderSortBy from "common/Enum/EnumOrderSortBy";
 import OrderResolver from "../Resolver/OrderResolver";
 import {createServer, YogaNodeServerInstance} from "@graphql-yoga/node";
 import {GraphQLSchema} from "graphql";
@@ -11,8 +11,8 @@ export class GqlService {
     server: YogaNodeServerInstance<any, any, any> = null
 
     init = async ()=> {
-        registerEnumType(EnumOrderSort, {
-            name: 'EnumOrderSort',
+        registerEnumType(EnumOrderSortBy, {
+            name: 'EnumOrderSortBy',
         })
         registerEnumType(EnumOrderStatus, {
             name: 'EnumOrderStatus',

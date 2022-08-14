@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:server": "ts-node packages/backend/app.ts"
+    "dev:backend": "yarn workspace backend run dev",
+    "dev:frontend": "yarn workspace frontend run dev"
   },
   "workspaces": [
     "packages/*"
   ],
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.7.4",
-    "ts-node": "^10.9.1"
+    "@types/lodash": "^4.14.179",
+    "typescript": "^4.7.4"
   },
   "dependencies": {
-    "mobx": "^6.6.1"
+    "lodash": "^4.17.21"
   }
 }
