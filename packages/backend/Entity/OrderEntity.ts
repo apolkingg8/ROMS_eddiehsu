@@ -1,7 +1,7 @@
 import {Field, ID, ObjectType} from "type-graphql";
 import MerchantEntity from "./MerchantEntity";
 import ProductEntity from "./ProductEntity";
-import {Collection, Entity, ManyToMany, ManyToOne, PrimaryKey, Property} from "@mikro-orm/core";
+import {Collection, Entity, Enum, ManyToMany, ManyToOne, PrimaryKey, Property} from "@mikro-orm/core";
 import EnumOrderStatus from "common/Enum/EnumOrderStatus";
 
 @ObjectType()
@@ -22,7 +22,7 @@ class OrderEntity {
     description: string
 
     @Field(()=> (EnumOrderStatus))
-    @Property()
+    @Enum(()=> (EnumOrderStatus))
     status: EnumOrderStatus
 
     @Field(()=> (MerchantEntity))
@@ -32,6 +32,12 @@ class OrderEntity {
     @Field(()=> ([ProductEntity]))
     @ManyToMany(()=> (ProductEntity))
     products: Collection<ProductEntity> = new Collection<ProductEntity>(this)
+
+    @Field()
+    @Property({persist: true})
+    get productsCount(): number {
+        return this.products.count()
+    }
 
     @Field({
         nullable: true,
