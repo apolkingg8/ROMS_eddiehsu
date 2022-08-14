@@ -1,13 +1,13 @@
 
-enum EnumOrderSort {
+enum EnumOrderSortBy {
     id = "id",
     name = "name",
     describe = "describe",
-    productCount = "productCount",
-    merchantId = "merchantId",
     createDate = "createDate",
     updateDate = "updateDate",
+    completeDate = "completeDate",
+    cancelDate = "cancelDate",
     deleteDate = "deleteDate",
 }
 
-export default EnumOrderSort
+export default EnumOrderSortBy
