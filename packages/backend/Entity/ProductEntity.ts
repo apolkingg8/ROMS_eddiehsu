@@ -1,11 +1,11 @@
-import {v4} from "uuid";
-import Order from "common/Klass/Order";
 import {Field, ID, ObjectType} from "type-graphql";
 import OrderEntity from "./OrderEntity";
-import {Collection, Entity, ManyToMany, ManyToOne, PrimaryKey, Property} from "@mikro-orm/core";
+import {Collection, Entity, ManyToMany, PrimaryKey, Property} from "@mikro-orm/core";
 
 @ObjectType()
-@Entity()
+@Entity({
+    tableName: 'product',
+})
 class ProductEntity {
     @Field(type => ID)
     @PrimaryKey()
