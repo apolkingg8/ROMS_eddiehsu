@@ -51,6 +51,13 @@ class OrderResolver {
 
         return orderEntities
     }
+
+    @Query(()=> (Number))
+    async totalCount(): Promise<number> {
+        const count = await orderRepo.getTotalCount()
+
+        return count
+    }
 }
 
 export default OrderResolver

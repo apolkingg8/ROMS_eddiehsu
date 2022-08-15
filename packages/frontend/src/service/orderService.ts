@@ -13,8 +13,11 @@ export class OrderService {
     orders: Order[] = []
     totalCount: number = 0
 
+    get totalPages(): number {
+        return Math.floor(this.totalCount / this.take)
+    }
     get currentPage(): number {
-        return Math.floor(this.totalCount - this.skip / this.take) + 1
+        return Math.floor(this.skip / this.take) + 1
     }
 
     setTake = (take: number)=> {
@@ -35,6 +38,27 @@ export class OrderService {
 
     setSortDirection = (sortDirection: EnumSortDirection)=> {
         this.sortDirection = sortDirection
+    }
+
+    getTotalCount = async ()=> {
+        const query = `
+            query GetTotalCount {
+                totalCount
+            }
+        `
+        const fetched = await fetch(`http://localhost:3002/graphql`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+            })
+        })
+        const json = await fetched.json()
+        const totalCount = json['data']['totalCount']
+
+        this.totalCount = totalCount
     }
 
     queryOrders = async () => {

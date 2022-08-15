@@ -53,6 +53,12 @@ export class OrderRepo {
 
         return entities
     }
+
+    getTotalCount = async ()=> {
+        const count = await dbService.orderRepo.count()
+
+        return count
+    }
 }
 
 export default new OrderRepo()
