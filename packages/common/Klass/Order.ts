@@ -17,6 +17,13 @@ class Order {
     cancelDate: Date = null
     deleteDate: Date = null
 
+    get isCompleted(): boolean {
+        return this.status === EnumOrderStatus.completed
+    }
+    get isCanceled(): boolean {
+        return this.status === EnumOrderStatus.canceled
+    }
+
     constructor(props: Partial<Order>) {
         Object.assign(this, props)
 

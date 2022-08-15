@@ -5,6 +5,7 @@ import {stylesheet} from "typestyle";
 import orderService from "../service/orderService";
 import OrderListRow from "./OrderListRow";
 import {percent} from "csx";
+import styleStore from "../store/styleStore";
 
 export interface OrderListProps {
 
@@ -15,6 +16,11 @@ const getStyles = computedFn(() => (stylesheet({
         width: percent(100),
         flex: 1,
         overflow: "auto",
+        $nest: {
+            ...styleStore.scrollBar(
+                8,
+            )
+        },
     },
 })))
 

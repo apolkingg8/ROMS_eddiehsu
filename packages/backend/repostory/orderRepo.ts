@@ -25,7 +25,7 @@ export class OrderRepo {
                 break
         }
 
-        const entities: OrderEntity[] = await dbService.orderRepo.find({
+        const [entities, count]: [OrderEntity[], number] = await dbService.orderRepo.findAndCount({
             $or: [{
                 id: {
                     $like: `%${args.searchKey}%`,
