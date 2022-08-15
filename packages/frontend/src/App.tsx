@@ -6,6 +6,8 @@ import {viewHeight, viewWidth} from "csx";
 import themeStore from "./store/themeStore";
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import Header from "./Component/Header";
+import OrderList from "./Component/OrderList";
+import styleStore from "./store/styleStore";
 
 
 export interface AppProps {
@@ -14,6 +16,8 @@ export interface AppProps {
 
 const getStyles = computedFn(() => (stylesheet({
     wrap: {
+        ...styleStore.centerCol,
+        justifyContent: "flex-start",
         width: viewWidth(100),
         height: viewHeight(100),
         padding: 24,
@@ -29,6 +33,7 @@ const App = (props: AppProps) => {
             <CssBaseline/>
             <div className={styles.wrap}>
                 <Header/>
+                <OrderList/>
             </div>
         </ThemeProvider>
     )

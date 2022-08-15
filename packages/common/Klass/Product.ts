@@ -13,6 +13,12 @@ class Product {
 
     constructor(props: Partial<Product>) {
         Object.assign(this, props)
+
+        props.orders && (this.orders = props.orders.map((o)=> (new Order(o))))
+        props.createDate && (this.createDate = new Date(props.createDate))
+        props.updateDate && (this.createDate = new Date(props.createDate))
+        props.deleteDate && (this.createDate = new Date(props.createDate))
+
         makeAutoObservable(this)
     }
 }

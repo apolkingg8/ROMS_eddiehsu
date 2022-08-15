@@ -4,6 +4,7 @@ import {computedFn} from "mobx-utils";
 import {stylesheet} from "typestyle";
 import themeStore from "../store/themeStore";
 import SearchInput from "./SearchBar";
+import {percent} from "csx";
 
 export interface HeaderProps {
 
@@ -11,7 +12,7 @@ export interface HeaderProps {
 
 const getStyles = computedFn(() => (stylesheet({
     wrap: {
-
+        width: percent(100),
     },
     titleRow: {
         display: "flex",

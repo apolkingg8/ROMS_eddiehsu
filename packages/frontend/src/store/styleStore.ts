@@ -13,6 +13,14 @@ export class StyleStore {
 
     centerRow: NestedCSSProperties = {
         display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+    }
+
+    centerCol: NestedCSSProperties = {
+        display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
     }
@@ -21,8 +29,6 @@ export class StyleStore {
         cssRule(`html, body, #root`, {
             width: percent(100),
             height: percent(100),
-            background: this.palette.transparent,
-            overflow: "hidden",
         })
         cssRule(`*`, {
             userSelect: "none",

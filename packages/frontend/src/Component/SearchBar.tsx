@@ -85,6 +85,9 @@ const SearchBar = (props: SearchBarProps) => {
             </FormControl>
             <Button
                 className={styles.searchBtn}
+                onClick={()=> {
+                    orderService.queryOrders()
+                }}
             >
                 Search
             </Button>
