@@ -40,27 +40,6 @@ export class OrderService {
         this.sortDirection = sortDirection
     }
 
-    getTotalCount = async ()=> {
-        const query = `
-            query GetTotalCount {
-                totalCount
-            }
-        `
-        const fetched = await fetch(`http://localhost:3002/graphql`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: query,
-            })
-        })
-        const json = await fetched.json()
-        const totalCount = json['data']['totalCount']
-
-        this.totalCount = totalCount
-    }
-
     queryOrders = async () => {
         const query = `
             query QueryOrders(
@@ -70,31 +49,34 @@ export class OrderService {
                 $sortBy: EnumOrderSortBy
                 $sortDirection: EnumSortDirection
             ) {
-                orders(
+                ordersAndCount(
                     skip: $skip
                     take: $take
                     searchKey: $searchKey
                     sortBy: $sortBy
                     sortDirection: $sortDirection
                 ) {
-                    id
-                    name
-                    description
-                    status
-                    merchant {
+                    orders {
                         id
                         name
                         description
+                        status
+                        merchant {
+                            id
+                            name
+                            description
+                        }
+                        products {
+                            id
+                            name
+                            description
+                        }
+                        createDate
+                        updateDate
+                        completeDate
+                        cancelDate
                     }
-                    products {
-                        id
-                        name
-                        description
-                    }
-                    createDate
-                    updateDate
-                    completeDate
-                    cancelDate
+                    totalCount
                 }
             }
         `
@@ -116,11 +98,13 @@ export class OrderService {
             })
         })
         const json = await fetched.json()
-        const orders: Order[] = json['data']['orders'].map((order)=> {
+        const orders: Order[] = json['data']['ordersAndCount']['orders'].map((order)=> {
             return new Order(order)
         })
+        const totalCount: number = json['data']['ordersAndCount']['totalCount']
 
         this.orders = orders
+        this.totalCount = totalCount
     }
 
     constructor() {

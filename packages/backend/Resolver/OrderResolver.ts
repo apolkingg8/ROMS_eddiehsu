@@ -1,4 +1,4 @@
-import {Args, ArgsType, Field, Int, Query, Resolver} from "type-graphql";
+import {Args, ArgsType, Field, Int, ObjectType, Query, Resolver} from "type-graphql";
 import OrderEntity from "../Entity/OrderEntity";
 import EnumOrderSortBy from "common/Enum/EnumOrderSortBy";
 import orderRepo from "../repostory/orderRepo";
@@ -37,11 +37,20 @@ class OrdersArgs {
     searchKey?: string
 }
 
+@ObjectType()
+class OrdersResult {
+    @Field(()=> ([OrderEntity]))
+    orders: OrderEntity[]
+
+    @Field()
+    totalCount: number
+}
+
 @Resolver()
 class OrderResolver {
-    @Query(()=> ([OrderEntity]))
-    async orders(@Args() args: OrdersArgs): Promise<OrderEntity[]> {
-        const orderEntities = await orderRepo.query({
+    @Query(()=> (OrdersResult))
+    async ordersAndCount(@Args() args: OrdersArgs): Promise<OrdersResult> {
+        const [orderEntities, totalCount] = await orderRepo.query({
             take: args.take,
             skip: args.skip,
             sortBy: args.sortBy,
@@ -49,14 +58,10 @@ class OrderResolver {
             searchKey: args.searchKey,
         })
 
-        return orderEntities
-    }
-
-    @Query(()=> (Number))
-    async totalCount(): Promise<number> {
-        const count = await orderRepo.getTotalCount()
-
-        return count
+        return {
+            orders: orderEntities,
+            totalCount: totalCount,
+        }
     }
 }
 

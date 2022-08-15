@@ -13,7 +13,7 @@ export interface IOrderRepoQueryArgs {
 }
 
 export class OrderRepo {
-    query = async (args: IOrderRepoQueryArgs): Promise<OrderEntity[]> => {
+    query = async (args: IOrderRepoQueryArgs): Promise<[OrderEntity[], number]> => {
         let orderType: QueryOrder = QueryOrder.DESC_NULLS_LAST
 
         switch (args.sortDirection) {
@@ -25,7 +25,7 @@ export class OrderRepo {
                 break
         }
 
-        const [entities, count]: [OrderEntity[], number] = await dbService.orderRepo.findAndCount({
+        const [entities, totalCount]: [OrderEntity[], number] = await dbService.orderRepo.findAndCount({
             $or: [{
                 id: {
                     $like: `%${args.searchKey}%`,
@@ -51,13 +51,7 @@ export class OrderRepo {
             },
         })
 
-        return entities
-    }
-
-    getTotalCount = async ()=> {
-        const count = await dbService.orderRepo.count()
-
-        return count
+        return [entities, totalCount]
     }
 }
 

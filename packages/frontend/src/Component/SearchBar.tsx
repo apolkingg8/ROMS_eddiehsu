@@ -39,7 +39,7 @@ const SearchBar = (props: SearchBarProps) => {
             <TextField
                 className={styles.input}
                 label={'Search'}
-                placeholder={'Search order id, name, or describe'}
+                placeholder={'Search order id, name, description or status'}
                 value={orderService.searchKey}
                 defaultValue={''}
                 onChange={(event)=> {
