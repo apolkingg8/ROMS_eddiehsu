@@ -43,6 +43,7 @@ const SearchBar = (props: SearchBarProps) => {
                 value={orderService.searchKey}
                 defaultValue={''}
                 onChange={(event)=> {
+                    orderService.setSkip(0)
                     orderService.setSearchKey(event.target.value)
                 }}
             />
