@@ -39,13 +39,32 @@ yarn run dev:frontend
 Please check [ROMS_task2.drawio.pdf](./ROMS_task2.drawio.pdf)
 
 ### Design
-* I am familiar with GCP, so all the cloud services I mentioned will be based on GCP, but these are very common services and alternatives can be found on AWS or Azure.
-* The design goal is to be able to carry tens of thousands of stores, hundreds of thousands or millions of data sent per second, and to output real-time (about 10 minutes to update) charts after collation.
-* I had a similar challenge when I worked at QCDN, where we had to collect and distribute a large number of CDN logs, so the feasibility of this design was proven.
-* In this case, the primary challenge is to handle the hundreds of thousands or millions of data requests per second. The best solution is to use a serverless handler like CloudFunction/Lambda. This type of service is designed to be extremely scalable and can handle large amounts of requests (e.g. after hours, during peak customer dinner shopping hours). Another design approach is to use a scalable server, such as AppEngine or CloudRun. This type of service is also scalable, but takes longer to scale and may have problems with high peak.
-* In order to avoid crashing the general database due to large number of writes, a batch write mechanism is necessary. This can be achieved by using memory-based database and cron jobs.
-* Another problem to solve is how to analyze huge amount of data (TB or PB). If the amount of data to be analyzed is very large, we can use BigQuery to implement it. But if we only need recent data, CloudSQL can handle it. Another optimization is to periodically move old data that is not used frequently to a "cold database", which reduces the burden on the main database when querying.
-* For the final output report, to avoid repeated queries in the main database, you can store the frequently used data in the cache database.
+I am familiar with GCP, so all the cloud services I mentioned will be based on GCP, but these are very common services 
+and alternatives can be found on AWS or Azure.
+
+The design goal is to be able to carry tens of thousands of stores, hundreds of thousands or millions of data sent per 
+second, and to output real-time (about 10 minutes to update) charts after collation.
+
+I had a similar challenge when I worked at QCDN, where we had to collect and distribute a large number of CDN logs, so 
+the feasibility of this design was proven.
+
+In this case, the primary challenge is to handle the hundreds of thousands or millions of data requests per second. 
+The best solution is to use a serverless handler like CloudFunction/Lambda. This type of service is designed to be 
+extremely scalable and can handle large amounts of requests (e.g. after hours, during peak customer dinner shopping 
+hours). Another design approach is to use a scalable server, such as AppEngine, CloudRun. This type of service is 
+also scalable, but takes longer to scale and may have problems with high peak. K8S is always an option for  building a 
+scalable service, but I don't think it's the best option here because it's a bit overkill. 
+
+In order to avoid crashing the general database due to large number of writes, a batch write mechanism is necessary. 
+This can be achieved by using memory-based database and cron jobs.
+
+Another problem to solve is how to analyze huge amount of data (TB or PB). If the amount of data to be analyzed is 
+very large, we can use BigQuery to implement it. But if we only need recent data, CloudSQL can handle it. Another 
+optimization is to periodically move old data that is not used frequently to a "cold database", which reduces the 
+burden on the main database when querying.
+
+For the final output report, to avoid repeated queries in the main database, you can store the frequently used data 
+in the cache database.
 
 ## Author
 * [Eddie Hsu](https://github.com/apolkingg8)
